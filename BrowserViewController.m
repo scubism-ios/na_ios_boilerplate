@@ -8,7 +8,7 @@
 
 #import "BrowserViewController.h"
 
-#import "NANetworkActivityIndicatorManager.h"
+//#import "NANetworkActivityIndicatorManager.h"
 
 #import "SFKImage.h"
 
@@ -40,6 +40,7 @@
     [self.nextButton setImage:[SFKImage imageNamed:@"next"]];
     [self.refleshButton setImage:[SFKImage imageNamed:@"reload"]];
     [self.actionButton setImage:[SFKImage imageNamed:@"safari"]];
+    [self.headerHeightConstraint setConstant:0];
 }
 
 - (void)update{
@@ -50,24 +51,24 @@
 - (void)webViewDidStartLoad:(UIWebView *)webView{
     [self update];
     self.load_cnt += 1;
-    [[NANetworkActivityIndicatorManager sharedManager] incrementActivityCount:nil option:nil];
+//    [[NANetworkActivityIndicatorManager sharedManager] incrementActivityCount:nil maskType:NAProgressHUDMaskTypeDefault option:nil];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
     [self update];
     self.load_cnt -= 1;
-    [[NANetworkActivityIndicatorManager sharedManager] decrementActivityCount:nil];
+//    [[NANetworkActivityIndicatorManager sharedManager] decrementActivityCount:nil];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
     [self update];
     self.load_cnt -= 1;
-    [[NANetworkActivityIndicatorManager sharedManager] decrementActivityCount:nil];
+//    [[NANetworkActivityIndicatorManager sharedManager] decrementActivityCount:nil];
 }
 
 - (IBAction)close:(id)sender {
     for (int i=0; i<self.load_cnt; i++) {
-        [[NANetworkActivityIndicatorManager sharedManager] decrementActivityCount:nil];
+//        [[NANetworkActivityIndicatorManager sharedManager] decrementActivityCount:nil];
     }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
