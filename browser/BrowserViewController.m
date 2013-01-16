@@ -8,10 +8,6 @@
 
 #import "BrowserViewController.h"
 
-//#import "NANetworkActivityIndicatorManager.h"
-
-#import "SFKImage.h"
-
 #import "UIView+na.h"
 
 @interface BrowserViewController ()
@@ -35,12 +31,10 @@
     NSString *escaped = [self.initialSource stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:escaped]]];
     [self update];
-    
-    [self.backButton setImage:[SFKImage imageNamed:@"back"]];
-    [self.nextButton setImage:[SFKImage imageNamed:@"next"]];
-    [self.refleshButton setImage:[SFKImage imageNamed:@"reload"]];
-    [self.actionButton setImage:[SFKImage imageNamed:@"safari"]];
-    [self.headerHeightConstraint setConstant:0];
+    [self.headerView setHeight:0];
+    [self.webView setTop:self.navigationBar.bottom];
+    [self.webView setHeight:self.view.height-self.navigationBar.bottom - 44];
+//    [self.headerHeightConstraint setConstant:0];
 }
 
 - (void)update{
